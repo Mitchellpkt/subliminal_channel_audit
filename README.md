@@ -29,6 +29,14 @@ At time of writing, the monero blockchin height is 2127810 and the current tme i
 
 ` ~ 51 bits` 
 
+There is low hanging fruit for mitigation. "Dead" unlock times could be prevented at the protocol level with 2 new rules:
+- if less than 500,000,000 then the lock time must be greater than the block height if the newest ring member in the transaction.
+- if greater than 500,000,000 the the lock time must be greater than the timestamp in the block containing the newest ring member (could add median window for robustness).
+
+These changes would not have a significant impact on the transaction structure, or generation/verification time, and will completely eliminate 51 bits of subliminal channels.
+
+Alternately, an encrypted lock time entirely mitigates the issue, and is [desirable for many reasons](https://github.com/insight-decentralized-consensus-lab/monero_encrypted_unlock_time). 
+
 ## Fees (easy to execute, hard to notice)
 Monero allows a high degree of precision on plaintext fees, which is known to be [harmful for user privacy](https://github.com/monero-project/monero/issues/5711). Previous work has focused on presumably accidental information leaks in the most significant digits. Here, we examine the opposite, leveraging the least significant digits to intentionally encode data. 
 
@@ -44,8 +52,10 @@ and we'll use 10% as the notice_threshold.
 
 `~ 21 bits`
 
+This could be mitigated by discretizing and bounding the fee field, for example a consensus rule that transaction fees must be 2^N for some *reasonable* range of N. As a bonus, this would reduce transaction size since it would only be necessary to include the exponent instead of the explicit value.
+
 ## Tx_extra (easy to execute)
-Limited only by maximum transaction size. Lol.
+Limited only by maximum transaction size. Lol. 
 
 ## Vanity stealth addresses (hard to execute, easy to notice)
 Unlike the above methods which are essentially computationally free, encoding information in stealth addresses / public keys requires partial collisions, which is a brute force attack. Number of bits depends on key generation time and another notice_threshold - I am unlikely to notice if transaction generation takes 2% longer to encode 4 bits of data, but I'll notice if it's 700% longer to encode a larger data payload.
