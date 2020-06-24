@@ -30,7 +30,7 @@ At time of writing, the monero blockchin height is 2127810 and the current tme i
 ` ~ 51 bits` 
 
 There is low hanging fruit for mitigation. "Dead" unlock times could be prevented at the protocol level with 2 new rules:
-- if less than 500,000,000 then the lock time must be greater than the block height if the newest ring member in the transaction.
+- if less than 500,000,000 then the lock time must be greater than the block height of the newest ring member in the transaction.
 - if greater than 500,000,000 the the lock time must be greater than the timestamp in the block containing the newest ring member (could add median window for robustness).
 
 These changes would not have a significant impact on the transaction structure, or generation/verification time, and will completely eliminate 51 bits of subliminal channels.
