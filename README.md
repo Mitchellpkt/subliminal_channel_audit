@@ -24,5 +24,7 @@ Lock times greater than 500,000,000 are interpreted as unix epoch timestamps, so
 At time of writing, the monero blockchin height is 2127810 and the current tme is 1593020887. How much data can we pack into unlock_time without locking the transaction?
 
 `log2(current_block_height) + log2(current_epoch_time - 500,000,000)`
+
 `log2(2127810) + log2(1593020887 - 500,000,000)`
+
 ` ~ 51 bits` 
