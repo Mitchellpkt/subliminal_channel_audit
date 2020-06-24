@@ -63,10 +63,10 @@ Unlike the above methods which are essentially computationally free, encoding in
 ## Ring member selection (esoteric)
 For each ring of size N, one member is fixed by the true spend, and the other N-1 members are arbitrarily selected from a pool of (generally RingCT) outputs. The number of bits that could be encoded can be *approximated* as `log2((N-1)*(# RingCT outputs))`
 
-Right now the ring size is N = 11, and there are on the order of 15000000 RingCT outputs on the chain. (?? double check number) Thus,
+Right now the ring size is N = 11, and there are on the order of 18000000 RingCT outputs on the chain. (?? double check number) Thus,
 
 `# bits ~ log2((N-1)*(# RingCT outputs))`
 
-`# bits ~ log2((11-1)*(15000000))`
+`# bits ~ log2((11-1)*(18000000))`
 
 `~ 27 bits`
